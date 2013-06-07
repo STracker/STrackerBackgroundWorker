@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STrackerBackgroundWorker", "STrackerBackgroundWorker\STrackerBackgroundWorker.csproj", "{6EE598C4-A1B0-4986-9B76-52A35E785E93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STrackerBackgroundWorker.RabbitMQ", "STrackerBackgroundWorker.RabbitMQ\STrackerBackgroundWorker.RabbitMQ.csproj", "{31952361-DFA9-4025-9B55-6A5944AC28EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STrackerBackgroundWorker.Commands", "STrackerBackgroundWorker.Commands\STrackerBackgroundWorker.Commands.csproj", "{D059FD6C-1FD9-4BCA-9FF6-1652E11A4EBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STrackerBackgroundWorker.ExternalProviders", "STrackerBackgroundWorker.ExternalProviders\STrackerBackgroundWorker.ExternalProviders.csproj", "{9A1E7D74-B28D-4E90-A3BA-56FCB43CB1FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STrackerBackgroundWorker.Ninject", "STrackerBackgroundWorker.Ninject\STrackerBackgroundWorker.Ninject.csproj", "{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1C79A40B-BEEA-43B9-8E19-F50EF050CB2E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EE598C4-A1B0-4986-9B76-52A35E785E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE598C4-A1B0-4986-9B76-52A35E785E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE598C4-A1B0-4986-9B76-52A35E785E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE598C4-A1B0-4986-9B76-52A35E785E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31952361-DFA9-4025-9B55-6A5944AC28EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31952361-DFA9-4025-9B55-6A5944AC28EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31952361-DFA9-4025-9B55-6A5944AC28EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31952361-DFA9-4025-9B55-6A5944AC28EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D059FD6C-1FD9-4BCA-9FF6-1652E11A4EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D059FD6C-1FD9-4BCA-9FF6-1652E11A4EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D059FD6C-1FD9-4BCA-9FF6-1652E11A4EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D059FD6C-1FD9-4BCA-9FF6-1652E11A4EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1E7D74-B28D-4E90-A3BA-56FCB43CB1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1E7D74-B28D-4E90-A3BA-56FCB43CB1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1E7D74-B28D-4E90-A3BA-56FCB43CB1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1E7D74-B28D-4E90-A3BA-56FCB43CB1FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
