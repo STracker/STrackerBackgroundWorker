@@ -7,16 +7,16 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.Commands.Commands
+namespace STrackerBackgroundWorker.Commands.Commands
 {
     using System.Collections.Generic;
+
+    using STrackerBackgroundWorker.ExternalProviders;
 
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
     using STrackerServer.DataAccessLayer.Core.SeasonsRepositories;
     using STrackerServer.DataAccessLayer.Core.TvShowsRepositories;
     using STrackerServer.DataAccessLayer.DomainEntities;
-
-    using STrackerUpdater.ExternalProviders;
 
     /// <summary>
     /// The name command.

@@ -7,13 +7,12 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater
+namespace STrackerBackgroundWorker
 {
-    using Ninject;
+    using global::Ninject;
 
-    using STrackerUpdate.Ninject;
-
-    using STrackerUpdater.RabbitMQ;
+    using STrackerBackgroundWorker.Ninject;
+    using STrackerBackgroundWorker.RabbitMQ;
 
     /// <summary>
     /// The program.

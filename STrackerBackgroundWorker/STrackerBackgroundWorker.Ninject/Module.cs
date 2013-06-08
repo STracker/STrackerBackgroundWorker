@@ -7,17 +7,21 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdate.Ninject
+namespace STrackerBackgroundWorker.Ninject
 {
     using System.Configuration;
 
     using MongoDB.Driver;
 
-    using RabbitMQ.Client;
-
-    using STrackerUpdater.RabbitMQ;
-
     using global::Ninject.Modules;
+
+    using global::RabbitMQ.Client;
+
+    using STrackerBackgroundWorker.Commands.Commands;
+    using STrackerBackgroundWorker.ExternalProviders;
+    using STrackerBackgroundWorker.ExternalProviders.Core;
+    using STrackerBackgroundWorker.ExternalProviders.Providers;
+    using STrackerBackgroundWorker.RabbitMQ;
 
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
     using STrackerServer.DataAccessLayer.Core.SeasonsRepositories;
@@ -27,11 +31,6 @@ namespace STrackerUpdate.Ninject
     using STrackerServer.Repository.MongoDB.Core.SeasonsRepositories;
     using STrackerServer.Repository.MongoDB.Core.TvShowsRepositories;
     using STrackerServer.Repository.MongoDB.Core.UsersRepositories;
-
-    using STrackerUpdater.Commands.Commands;
-    using STrackerUpdater.ExternalProviders;
-    using STrackerUpdater.ExternalProviders.Core;
-    using STrackerUpdater.ExternalProviders.Providers;
 
     /// <summary>
     /// The module for STRACKER.

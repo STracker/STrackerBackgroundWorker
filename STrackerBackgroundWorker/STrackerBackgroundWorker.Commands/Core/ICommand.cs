@@ -6,7 +6,7 @@
 //  Interface that defines the contract of the Command Pattern.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace STrackerUpdater.Commands.Core
+namespace STrackerBackgroundWorker.Commands.Core
 {
     /// <summary>
     /// The Command interface.

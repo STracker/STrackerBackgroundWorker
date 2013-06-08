@@ -7,16 +7,15 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater
+namespace STrackerBackgroundWorker
 {
     using System.Collections.Generic;
 
-    using Ninject;
+    using global::Ninject;
 
-    using STrackerUpdate.Ninject;
-
-    using STrackerUpdater.Commands.Commands;
-    using STrackerUpdater.Commands.Core;
+    using STrackerBackgroundWorker.Commands.Commands;
+    using STrackerBackgroundWorker.Commands.Core;
+    using STrackerBackgroundWorker.Ninject;
 
     /// <summary>
     /// The command container.

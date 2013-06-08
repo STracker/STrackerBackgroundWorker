@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.ExternalProviders
+namespace STrackerBackgroundWorker.ExternalProviders
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace STrackerUpdater.ExternalProviders
     using System.Linq;
     using System.Reflection;
 
-    using STrackerUpdater.ExternalProviders.Core;
+    using STrackerBackgroundWorker.ExternalProviders.Core;
 
     /// <summary>
     /// The television shows information manager.

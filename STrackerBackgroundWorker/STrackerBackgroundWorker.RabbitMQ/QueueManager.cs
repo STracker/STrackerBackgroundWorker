@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.RabbitMQ
+namespace STrackerBackgroundWorker.RabbitMQ
 {
     using System.IO;
     using System.Text;
@@ -17,7 +17,7 @@ namespace STrackerUpdater.RabbitMQ
 
     using global::RabbitMQ.Client.MessagePatterns;
 
-    using STrackerUpdater.RabbitMQ.Core;
+    using STrackerBackgroundWorker.RabbitMQ.Core;
 
     /// <summary>
     /// The queue manager.

@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.RabbitMQ.Core
+namespace STrackerBackgroundWorker.RabbitMQ.Core
 {
     /// <summary>
     /// The QueueManager interface.

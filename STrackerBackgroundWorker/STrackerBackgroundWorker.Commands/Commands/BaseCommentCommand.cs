@@ -7,9 +7,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.Commands.Commands
+namespace STrackerBackgroundWorker.Commands.Commands
 {
-    using STrackerUpdater.Commands.Core;
+    using STrackerBackgroundWorker.Commands.Core;
 
     /// <summary>
     /// The base comment command.

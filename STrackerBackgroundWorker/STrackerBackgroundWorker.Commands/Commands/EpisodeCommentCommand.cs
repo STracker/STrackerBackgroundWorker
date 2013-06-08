@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.Commands.Commands
+namespace STrackerBackgroundWorker.Commands.Commands
 {
     using System;
 

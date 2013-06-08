@@ -9,7 +9,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.ExternalProviders.Providers
+namespace STrackerBackgroundWorker.ExternalProviders.Providers
 {
     using System;
     using System.Collections.Generic;
@@ -17,10 +17,10 @@ namespace STrackerUpdater.ExternalProviders.Providers
     using System.Linq;
     using System.Xml;
 
+    using STrackerBackgroundWorker.ExternalProviders.Core;
+
     using STrackerServer.DataAccessLayer.DomainEntities;
     using STrackerServer.DataAccessLayer.DomainEntities.AuxiliaryEntities;
-
-    using STrackerUpdater.ExternalProviders.Core;
 
     /// <summary>
     /// The TVDB provider.

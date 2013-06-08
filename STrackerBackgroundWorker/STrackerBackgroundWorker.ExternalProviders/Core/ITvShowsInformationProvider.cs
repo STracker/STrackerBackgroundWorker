@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace STrackerUpdater.ExternalProviders.Core
+namespace STrackerBackgroundWorker.ExternalProviders.Core
 {
     using System.Collections.Generic;
 
