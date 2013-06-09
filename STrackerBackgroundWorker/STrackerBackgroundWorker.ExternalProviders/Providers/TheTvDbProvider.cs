@@ -247,6 +247,9 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var airDayNode = xdoc.SelectSingleNode("//Airs_DayOfWeek");
             tvshow.AirDay = (airDayNode != null && airDayNode.LastChild != null) ? airDayNode.LastChild.Value : null;
 
+            var airTimeNode = xdoc.SelectSingleNode("//Airs_Time");
+            tvshow.AirTime = (airTimeNode != null && airTimeNode.LastChild != null) ? airTimeNode.LastChild.Value : null;
+
             var runtimeNode = xdoc.SelectSingleNode("//Runtime");
             tvshow.Runtime = (runtimeNode != null && runtimeNode.LastChild != null) ? int.Parse(runtimeNode.LastChild.Value) : 0;
 
@@ -425,6 +428,9 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
 
                 var descriptionNode = xmlNode.SelectSingleNode("Overview");
                 episode.Description = (descriptionNode != null && descriptionNode.LastChild != null) ? descriptionNode.LastChild.Value : null;
+
+                var dateNote = xmlNode.SelectSingleNode("FirstAired");
+                episode.Date = (dateNote != null && dateNote.LastChild != null) ? dateNote.LastChild.Value : null;
 
                 var directorNode = xmlNode.SelectSingleNode("Director");
                 episode.Directors = new List<Person>();
