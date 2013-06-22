@@ -51,5 +51,13 @@ namespace STrackerBackgroundWorker.ExternalProviders.Core
         /// The episodes.
         /// </param>
         void GetInformationByName(string name, out TvShow tvshow, out List<Season> seasons, out List<Episode> episodes);
+
+        /// <summary>
+        /// The get new episodes.
+        /// </summary>
+        /// <param name="episodes">
+        /// The episodes.
+        /// </param>
+        void GetNewEpisodes(out List<Episode> episodes);
     }
 }

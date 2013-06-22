@@ -44,11 +44,13 @@
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\packages\RabbitMQ.Client.3.0.4\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
-    <Reference Include="STrackerServer.DataAccessLayer">
-      <HintPath>..\external libraries\STrackerServer.DataAccessLayer.dll</HintPath>
+    <Reference Include="STrackerServer.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\STrackerServer.Repository.MongoDB.1.0.0\lib\STrackerServer.DataAccessLayer.dll</HintPath>
     </Reference>
-    <Reference Include="STrackerServer.Repository.MongoDB">
-      <HintPath>..\external libraries\STrackerServer.Repository.MongoDB.dll</HintPath>
+    <Reference Include="STrackerServer.Repository.MongoDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\STrackerServer.Repository.MongoDB.1.0.0\lib\STrackerServer.Repository.MongoDB.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

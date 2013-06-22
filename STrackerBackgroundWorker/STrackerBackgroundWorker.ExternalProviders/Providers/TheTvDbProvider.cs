@@ -80,6 +80,77 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         }
 
         /// <summary>
+        /// The get new episodes.
+        /// </summary>
+        /// <param name="episodes">
+        /// The episodes.
+        /// </param>
+        public void GetNewEpisodes(out List<Episode> episodes)
+        {
+            var url = string.Format("{0}/api/{1}/updates/updates_day.xml", MirrorPath, ApiKey);
+            var xdoc = new XmlDocument();
+            try
+            {
+                xdoc.Load(new XmlTextReader(url));
+            }
+            catch (Exception)
+            {
+                episodes = null;
+                return;
+            }
+
+            var episodesNodes = xdoc.SelectNodes("//Episode");
+            if (episodesNodes == null)
+            {
+                episodes = null;
+                return;
+            }
+
+            episodes = new List<Episode>();
+            for (var i = 0; i < episodesNodes.Count; i++)
+            {
+                var xmlNode = episodesNodes.Item(i);
+                if (xmlNode == null)
+                {
+                    continue;
+                }
+
+                // Get IMDB id
+                var idSerie = xmlNode.SelectSingleNode("Series");
+                if (idSerie == null || idSerie.LastChild == null)
+                {
+                    continue;
+                }
+
+                var imdbid = GetImdbIdByTheTvDbId(idSerie.LastChild.Value);
+                if (imdbid == null)
+                {
+                    continue;
+                }
+
+                var idEpi = xmlNode.SelectSingleNode("id");
+                if (idEpi == null || idEpi.LastChild == null)
+                {
+                    continue;
+                }
+                
+                var urlEpi = string.Format("{0}/api/{1}/episodes/{2}", MirrorPath, ApiKey, idEpi.LastChild.Value);
+                var xdocEpi = new XmlDocument();
+                try
+                {
+                    xdocEpi.Load(new XmlTextReader(urlEpi));
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+
+                var episode = GetEpisodesInformation(imdbid, xdocEpi).FirstOrDefault();
+                episodes.Add(episode);
+            }
+        }
+
+        /// <summary>
         /// The get information.
         /// </summary>
         /// <param name="id">
@@ -212,8 +283,33 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             }
             
             var seriesIdNode = xdocId.SelectSingleNode("//seriesid");
+            return (seriesIdNode != null && seriesIdNode.LastChild != null) ? seriesIdNode.LastChild.Value : null;
+        }
 
-            return seriesIdNode != null ? seriesIdNode.LastChild.Value : null;
+        /// <summary>
+        /// The get IMDB id by the TVDB id.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private static string GetImdbIdByTheTvDbId(string id)
+        {
+            var url = string.Format("{0}/api/{1}/series/{2}", MirrorPath, ApiKey, id);
+            var xdoc = new XmlDocument();
+            try
+            {
+                xdoc.Load(new XmlTextReader(url));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+            var imdbIdNode = xdoc.SelectSingleNode("//IMDB_ID");
+            return (imdbIdNode != null && imdbIdNode.LastChild != null) ? imdbIdNode.LastChild.Value : null;
         }
 
         /// <summary>
@@ -416,7 +512,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
 
                 var episodeNumberNode = xmlNode.SelectSingleNode("EpisodeNumber");
                 var seasonNumberNode = xmlNode.SelectSingleNode("SeasonNumber");
-                if (episodeNumberNode == null || seasonNumberNode == null)
+                if ((episodeNumberNode == null || episodeNumberNode.LastChild == null) || (seasonNumberNode == null || seasonNumberNode.LastChild == null))
                 {
                     continue;
                 }
