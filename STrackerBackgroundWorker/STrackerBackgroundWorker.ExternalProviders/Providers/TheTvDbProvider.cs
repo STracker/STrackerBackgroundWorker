@@ -26,7 +26,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
     /// The TVDB provider.
     /// </summary>
     public class TheTvDbProvider : ITvShowsInformationProvider
-    {
+    { 
         /// <summary>
         /// The mirror path.
         /// </summary>
