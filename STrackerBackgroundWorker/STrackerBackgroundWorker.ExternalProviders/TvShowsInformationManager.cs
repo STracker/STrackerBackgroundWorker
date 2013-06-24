@@ -67,7 +67,7 @@ namespace STrackerBackgroundWorker.ExternalProviders
         public List<ITvShowsInformationProvider> GetFromProvidersFolder()
         {
             // Load assembly files
-            var files = Directory.GetFiles("../../../STrackerBackgroundWorker.ExternalProviders/Providers");
+            var files = Directory.GetFiles("../../../ExternalProviders");
 
             if (files.Length <= this.providers.Count)
             {

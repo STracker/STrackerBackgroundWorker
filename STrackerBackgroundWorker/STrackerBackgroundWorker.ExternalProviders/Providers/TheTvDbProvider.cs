@@ -38,6 +38,11 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         private static readonly string ApiKey = ConfigurationManager.AppSettings["TvDbAPI"];
 
         /// <summary>
+        /// The update type.
+        /// </summary>
+        private static readonly string UpdateType = ConfigurationManager.AppSettings["UpdateType"];
+
+        /// <summary>
         /// The get information by IMDB id.
         /// </summary>
         /// <param name="imdbId">
@@ -87,7 +92,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// </param>
         public void GetNewEpisodes(out List<Episode> episodes)
         {
-            var url = string.Format("{0}/api/{1}/updates/updates_day.xml", MirrorPath, ApiKey);
+            var url = string.Format("{0}/api/{1}/updates/{2}.xml", MirrorPath, ApiKey, UpdateType);
             var xdoc = new XmlDocument();
             try
             {
