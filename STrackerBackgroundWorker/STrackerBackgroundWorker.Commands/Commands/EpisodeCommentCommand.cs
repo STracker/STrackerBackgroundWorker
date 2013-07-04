@@ -50,8 +50,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
             var seasonNumber = splitArgs[1];
             var episodeNumber = splitArgs[2];
             var userId = splitArgs[3];
-            var timestamp = splitArgs[4];
-            var commentText = splitArgs[5];
+            var commentText = splitArgs[4];
 
             if (this.ContainsOffensiveWords(commentText))
             {
@@ -59,7 +58,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
             }
 
             // If the comment is valid insert into repository.
-            var comment = new Comment { Body = commentText, UserId = userId, Timestamp = timestamp };
+            var comment = new Comment { Body = commentText, UserId = userId };
             this.repository.AddComment(new Tuple<string, int, int>(tvshowId, int.Parse(seasonNumber), int.Parse(episodeNumber)), comment);
         }
     }

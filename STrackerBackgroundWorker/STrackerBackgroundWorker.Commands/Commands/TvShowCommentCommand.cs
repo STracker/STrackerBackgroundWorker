@@ -46,8 +46,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
             var splitArgs = arg.Split('|');
             var tvshowId = splitArgs[0];
             var userId = splitArgs[1];
-            var timestamp = splitArgs[2];
-            var commentText = splitArgs[3];
+            var commentText = splitArgs[2];
 
             if (this.ContainsOffensiveWords(commentText))
             {
@@ -55,7 +54,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
             }
 
             // If the comment is valid insert into repository.
-            var comment = new Comment { Body = commentText, UserId = userId, Timestamp = timestamp };
+            var comment = new Comment { Body = commentText, UserId = userId };
             this.repository.AddComment(tvshowId, comment);
         }
     }
