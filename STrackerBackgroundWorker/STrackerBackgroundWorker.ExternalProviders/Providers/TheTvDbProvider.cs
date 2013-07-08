@@ -369,10 +369,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var posterImageNode = xdoc.SelectSingleNode("//poster");
             if (posterImageNode != null && posterImageNode.LastChild != null)
             {
-                tvshow.Poster = new Artwork
-                        {
-                            ImageUrl = string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value)
-                        };
+                tvshow.Poster = string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value);
             }
 
             return tvshow;
@@ -431,7 +428,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var imageNode = xmlNode.SelectSingleNode("Image");
                 if (imageNode != null && imageNode.LastChild != null)
                 {
-                    actor.Photo = new Artwork { ImageUrl = string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value) };
+                    actor.Photo = string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value);
                 }
 
                 actors.Add(actor);
@@ -561,7 +558,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
 
                 if (filename != null)
                 {
-                    episode.Poster = new Artwork { ImageUrl = string.Format("{0}/banners/{1}", MirrorPath, filename) };
+                    episode.Poster = string.Format("{0}/banners/{1}", MirrorPath, filename);
                 }
             }
 
