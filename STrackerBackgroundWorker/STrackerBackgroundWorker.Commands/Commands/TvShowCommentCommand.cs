@@ -64,7 +64,14 @@ namespace STrackerBackgroundWorker.Commands.Commands
             }
 
             // If the comment is valid insert into repository.
-            var comment = new Comment { Body = commentText, User = this.usersRepository.Read(userId).GetSynopsis() };
+            var comment = new Comment
+                {
+                    Body = commentText, 
+                    User = this.usersRepository.Read(userId).GetSynopsis()
+                };
+
+            comment.Url = string.Format("tvshows/{0}/comments/{1}", tvshowId, comment.Id);
+
             this.repository.AddComment(tvshowId, comment);
         }
     }
