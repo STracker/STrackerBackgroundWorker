@@ -10,6 +10,7 @@
 namespace STrackerBackgroundWorker.Commands.Commands
 {
     using STrackerServer.DataAccessLayer.Core.TvShowsRepositories;
+    using STrackerServer.DataAccessLayer.Core.UsersRepositories;
     using STrackerServer.DataAccessLayer.DomainEntities.AuxiliaryEntities;
 
     /// <summary>
@@ -23,15 +24,24 @@ namespace STrackerBackgroundWorker.Commands.Commands
         private readonly ITvShowCommentsRepository repository;
 
         /// <summary>
+        /// The users repository.
+        /// </summary>
+        private readonly IUsersRepository usersRepository;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TvShowCommentCommand"/> class.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        public TvShowCommentCommand(ITvShowCommentsRepository repository)
+        /// <param name="usersRepository">
+        /// The users repository.
+        /// </param>
+        public TvShowCommentCommand(ITvShowCommentsRepository repository, IUsersRepository usersRepository)
             : base("tvShowCommentAdd")
         {
             this.repository = repository;
+            this.usersRepository = usersRepository;
         }
 
         /// <summary>
@@ -54,7 +64,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
             }
 
             // If the comment is valid insert into repository.
-            var comment = new Comment { Body = commentText, UserId = userId };
+            var comment = new Comment { Body = commentText, User = this.usersRepository.Read(userId).GetSynopsis() };
             this.repository.AddComment(tvshowId, comment);
         }
     }

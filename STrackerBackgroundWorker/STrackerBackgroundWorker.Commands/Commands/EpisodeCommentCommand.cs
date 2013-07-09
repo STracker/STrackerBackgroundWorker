@@ -12,6 +12,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
     using System;
 
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
+    using STrackerServer.DataAccessLayer.Core.UsersRepositories;
     using STrackerServer.DataAccessLayer.DomainEntities.AuxiliaryEntities;
 
     /// <summary>
@@ -25,15 +26,24 @@ namespace STrackerBackgroundWorker.Commands.Commands
         private readonly IEpisodeCommentsRepository repository;
 
         /// <summary>
+        /// The users repository.
+        /// </summary>
+        private readonly IUsersRepository usersRepository;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EpisodeCommentCommand"/> class.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        public EpisodeCommentCommand(IEpisodeCommentsRepository repository)
+        /// <param name="usersRepository">
+        /// The users repository.
+        /// </param>
+        public EpisodeCommentCommand(IEpisodeCommentsRepository repository, IUsersRepository usersRepository)
             : base("episodeCommentAdd")
         {
             this.repository = repository;
+            this.usersRepository = usersRepository;
         }
 
         /// <summary>
@@ -58,7 +68,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
             }
 
             // If the comment is valid insert into repository.
-            var comment = new Comment { Body = commentText, UserId = userId };
+            var comment = new Comment { Body = commentText, User = this.usersRepository.Read(userId).GetSynopsis() };
             this.repository.AddComment(new Tuple<string, int, int>(tvshowId, int.Parse(seasonNumber), int.Parse(episodeNumber)), comment);
         }
     }
