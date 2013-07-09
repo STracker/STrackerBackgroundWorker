@@ -70,7 +70,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
                     User = this.usersRepository.Read(userId).GetSynopsis()
                 };
 
-            comment.Url = string.Format("tvshows/{0}/comments/{1}", tvshowId, comment.Id);
+            comment.Uri = string.Format("tvshows/{0}/comments/{1}", tvshowId, comment.Id);
 
             this.repository.AddComment(tvshowId, comment);
         }
