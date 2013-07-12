@@ -17,6 +17,8 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
     using System.Linq;
     using System.Xml;
 
+    using ImageRepository.Core;
+
     using STrackerBackgroundWorker.ExternalProviders.Core;
 
     using STrackerServer.DataAccessLayer.DomainEntities;
@@ -43,6 +45,22 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         private static readonly string UpdateType = ConfigurationManager.AppSettings["UpdateType"];
 
         /// <summary>
+        /// The repository.
+        /// </summary>
+        private readonly IImageRepository repository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TheTvDbProvider"/> class.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        public TheTvDbProvider(IImageRepository repository)
+        {
+            this.repository = repository;
+        }
+
+        /// <summary>
         /// The get information by IMDB id.
         /// </summary>
         /// <param name="imdbId">
@@ -59,8 +77,8 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// </param>
         public void GetInformationByImdbId(string imdbId, out TvShow tvshow, out List<Season> seasons, out List<Episode> episodes)
         {
-            var id = GetTheTvDbIdByImdbId(imdbId);
-            GetInformation(id, out tvshow, out seasons, out episodes);
+            var id = this.GetTheTvDbIdByImdbId(imdbId);
+            this.GetInformation(id, out tvshow, out seasons, out episodes);
         }
 
         /// <summary>
@@ -80,8 +98,8 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// </param>
         public void GetInformationByName(string name, out TvShow tvshow, out List<Season> seasons, out List<Episode> episodes)
         {
-            var id = GetTheTvDbIdByName(name);
-            GetInformation(id, out tvshow, out seasons, out episodes);
+            var id = this.GetTheTvDbIdByName(name);
+            this.GetInformation(id, out tvshow, out seasons, out episodes);
         }
 
         /// <summary>
@@ -127,7 +145,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                     continue;
                 }
 
-                var imdbid = GetImdbIdByTheTvDbId(idSerie.LastChild.Value);
+                var imdbid = this.GetImdbIdByTheTvDbId(idSerie.LastChild.Value);
                 if (imdbid == null)
                 {
                     continue;
@@ -150,7 +168,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                     continue;
                 }
 
-                var episode = GetEpisodesInformation(imdbid, xdocEpi).FirstOrDefault();
+                var episode = this.GetEpisodesInformation(imdbid, xdocEpi).FirstOrDefault();
                 episodes.Add(episode);
             }
         }
@@ -170,7 +188,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// <param name="episodes">
         /// The episodes.
         /// </param>
-        private static void GetInformation(string id, out TvShow tvshow, out List<Season> seasons, out List<Episode> episodes)
+        private void GetInformation(string id, out TvShow tvshow, out List<Season> seasons, out List<Episode> episodes)
         {
             if (id == null)
             {
@@ -196,7 +214,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             }
 
             // Get basic information and actors.
-            tvshow = GetTvShowInformation(xdoc);
+            tvshow = this.GetTvShowInformation(xdoc);
             if (tvshow == null)
             {
                 seasons = null;
@@ -204,13 +222,13 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 return;
             }
 
-            tvshow.Actors = GetActors(id);
+            tvshow.Actors = this.GetActors(id);
 
             // Get seasons.
-            seasons = GetSeasonsInformation(tvshow.TvShowId, xdoc);
+            seasons = this.GetSeasonsInformation(tvshow.TvShowId, xdoc);
 
             // Get episodes.
-            episodes = GetEpisodesInformation(tvshow.TvShowId, xdoc);
+            episodes = this.GetEpisodesInformation(tvshow.TvShowId, xdoc);
         }
 
         /// <summary>
@@ -222,7 +240,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        private static string GetTheTvDbIdByName(string name)
+        private string GetTheTvDbIdByName(string name)
         {
             var url = string.Format("{0}/api/GetSeries.php?seriesname={1}", MirrorPath, name);
             var xdoc = new XmlDocument();
@@ -274,7 +292,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        private static string GetTheTvDbIdByImdbId(string imdbId)
+        private string GetTheTvDbIdByImdbId(string imdbId)
         {
             var url = string.Format("{0}/api/GetSeriesByRemoteID.php?imdbid={1}", MirrorPath, imdbId);
             var xdocId = new XmlDocument();
@@ -300,7 +318,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        private static string GetImdbIdByTheTvDbId(string id)
+        private string GetImdbIdByTheTvDbId(string id)
         {
             var url = string.Format("{0}/api/{1}/series/{2}", MirrorPath, ApiKey, id);
             var xdoc = new XmlDocument();
@@ -326,7 +344,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// <returns>
         /// The <see cref="TvShow"/>.
         /// </returns>
-        private static TvShow GetTvShowInformation(XmlNode xdoc)
+        private TvShow GetTvShowInformation(XmlNode xdoc)
         {
             var imdbIdNode = xdoc.SelectSingleNode("//IMDB_ID");
             if (imdbIdNode == null || imdbIdNode.LastChild == null)
@@ -369,7 +387,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var posterImageNode = xdoc.SelectSingleNode("//poster");
             if (posterImageNode != null && posterImageNode.LastChild != null)
             {
-                tvshow.Poster = string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value);
+                tvshow.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value));
             }
 
             return tvshow;
@@ -386,7 +404,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         ///       <cref>List</cref>
         ///     </see> .
         /// </returns>
-        private static List<Actor> GetActors(string id)
+        private List<Actor> GetActors(string id)
         {
             var xdoc = new XmlDocument();
             var url = string.Format("{0}/api/{1}/series/{2}/actors.xml", MirrorPath, ApiKey, id);
@@ -451,7 +469,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         ///       <cref>List</cref>
         ///     </see> .
         /// </returns>
-        private static List<Season> GetSeasonsInformation(string imdbId, XmlNode xdoc)
+        private List<Season> GetSeasonsInformation(string imdbId, XmlNode xdoc)
         {
             var seasonsNodes = xdoc.SelectNodes("//SeasonNumber");
             if (seasonsNodes == null)
@@ -495,7 +513,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         ///       <cref>List</cref>
         ///     </see> .
         /// </returns>
-        private static List<Episode> GetEpisodesInformation(string imdbId, XmlNode xdoc)
+        private List<Episode> GetEpisodesInformation(string imdbId, XmlNode xdoc)
         {
             var episodesNodes = xdoc.SelectNodes("//Episode");
             if (episodesNodes == null)
@@ -558,7 +576,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
 
                 if (filename != null)
                 {
-                    episode.Poster = string.Format("{0}/banners/{1}", MirrorPath, filename);
+                    episode.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename));
                 }
             }
 

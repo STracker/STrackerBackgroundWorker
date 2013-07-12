@@ -11,6 +11,10 @@ namespace STrackerBackgroundWorker.Ninject
 {
     using System.Configuration;
 
+    using CloudinaryDotNet;
+
+    using ImageRepository.Core;
+
     using MongoDB.Driver;
 
     using global::Ninject.Modules;
@@ -21,6 +25,7 @@ namespace STrackerBackgroundWorker.Ninject
     using STrackerBackgroundWorker.ExternalProviders;
     using STrackerBackgroundWorker.ExternalProviders.Core;
     using STrackerBackgroundWorker.ExternalProviders.Providers;
+    using STrackerBackgroundWorker.ExternalProviders.Repositories;
     using STrackerBackgroundWorker.RabbitMQ;
 
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
@@ -78,6 +83,17 @@ namespace STrackerBackgroundWorker.Ninject
             // Queue dependencies...
             this.Bind<ConnectionFactory>().ToSelf().InSingletonScope().WithPropertyValue("Uri", ConfigurationManager.AppSettings["RabbitMQUri"]);
             this.Bind<QueueManager>().ToSelf().InSingletonScope();
+
+            // IImagRepository dependencies
+            this.Bind<IImageRepository>().To<CloudinaryRepository>();
+
+            // Cloudinary dependencies
+            this.Bind<Account>().ToSelf()
+                .WithConstructorArgument("cloud", ConfigurationManager.AppSettings["Cloudinary:Cloud"])
+                .WithConstructorArgument("apiKey", ConfigurationManager.AppSettings["Cloudinary:ApiKey"])
+                .WithConstructorArgument("apiSecret", ConfigurationManager.AppSettings["Cloudinary:ApiSecret"]);
+
+            this.Bind<Cloudinary>().ToSelf();
         }
     }
 }
