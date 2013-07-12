@@ -446,9 +446,9 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var imageNode = xmlNode.SelectSingleNode("Image");
                 if (imageNode != null && imageNode.LastChild != null)
                 {
-                    actor.Photo = string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value);
+                    actor.Photo = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value));
                 }
-
+                
                 actors.Add(actor);
             }
 

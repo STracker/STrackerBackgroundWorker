@@ -46,7 +46,8 @@ namespace STrackerBackgroundWorker.ExternalProviders.Repositories
         /// </returns>
         public string Put(string imageUrl)
         {
-            return this.provider.Upload(new RawUploadParams { File = new FileDescription(imageUrl) }).Uri.AbsoluteUri;
+            var result = this.provider.Upload(new ImageUploadParams { File = new FileDescription(imageUrl) });
+            return result.Uri.AbsoluteUri;
         }
     }
 }
