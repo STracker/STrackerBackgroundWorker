@@ -28,7 +28,22 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
     /// The TVDB provider.
     /// </summary>
     public class TheTvDbProvider : ITvShowsInformationProvider
-    { 
+    {
+        /// <summary>
+        /// The not available.
+        /// </summary>
+        private const string NotAvailable = "N/A";
+
+        /// <summary>
+        /// The default actor photo.
+        /// </summary>
+        private const string DefaultActorPhoto = "https://dl.dropboxusercontent.com/u/2696848/default-profile-pic.jpg";
+
+        /// <summary>
+        /// The default poster.
+        /// </summary>
+        private const string DefaultPoster = "https://dl.dropboxusercontent.com/u/2696848/image-not-found.gif";
+
         /// <summary>
         /// The mirror path.
         /// </summary>
@@ -355,19 +370,19 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var tvshow = new TvShow(imdbIdNode.LastChild.Value);
 
             var nameNode = xdoc.SelectSingleNode("//SeriesName");
-            tvshow.Name = (nameNode != null && nameNode.LastChild != null) ? nameNode.LastChild.Value : null;
+            tvshow.Name = (nameNode != null && nameNode.LastChild != null) ? nameNode.LastChild.Value : NotAvailable;
 
             var descrNode = xdoc.SelectSingleNode("//Overview");
-            tvshow.Description = (descrNode != null && descrNode.LastChild != null) ? descrNode.LastChild.Value : null;
+            tvshow.Description = (descrNode != null && descrNode.LastChild != null) ? descrNode.LastChild.Value : NotAvailable;
 
             var firstAiredNode = xdoc.SelectSingleNode("//FirstAired");
-            tvshow.FirstAired = (firstAiredNode != null && firstAiredNode.LastChild != null) ? firstAiredNode.LastChild.Value : null;
+            tvshow.FirstAired = (firstAiredNode != null && firstAiredNode.LastChild != null) ? firstAiredNode.LastChild.Value : NotAvailable;
 
             var airDayNode = xdoc.SelectSingleNode("//Airs_DayOfWeek");
-            tvshow.AirDay = (airDayNode != null && airDayNode.LastChild != null) ? airDayNode.LastChild.Value : null;
+            tvshow.AirDay = (airDayNode != null && airDayNode.LastChild != null) ? airDayNode.LastChild.Value : NotAvailable;
 
             var airTimeNode = xdoc.SelectSingleNode("//Airs_Time");
-            tvshow.AirTime = (airTimeNode != null && airTimeNode.LastChild != null) ? airTimeNode.LastChild.Value : null;
+            tvshow.AirTime = (airTimeNode != null && airTimeNode.LastChild != null) ? airTimeNode.LastChild.Value : NotAvailable;
 
             var runtimeNode = xdoc.SelectSingleNode("//Runtime");
             tvshow.Runtime = (runtimeNode != null && runtimeNode.LastChild != null) ? int.Parse(runtimeNode.LastChild.Value) : 0;
@@ -388,6 +403,10 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             if (posterImageNode != null && posterImageNode.LastChild != null)
             {
                 tvshow.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value));
+            }
+            else
+            {
+                tvshow.Poster = DefaultPoster;
             }
 
             return tvshow;
@@ -438,15 +457,19 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var actor = new Actor();
 
                 var nodeName = xmlNode.SelectSingleNode("Name");
-                actor.Name = (nodeName != null && nodeName.LastChild != null) ? nodeName.LastChild.Value : null;
+                actor.Name = (nodeName != null && nodeName.LastChild != null) ? nodeName.LastChild.Value : NotAvailable;
 
                 var characterNameNode = xmlNode.SelectSingleNode("Role");
-                actor.CharacterName = (characterNameNode != null && characterNameNode.LastChild != null) ? characterNameNode.LastChild.Value : null;
+                actor.CharacterName = (characterNameNode != null && characterNameNode.LastChild != null) ? characterNameNode.LastChild.Value : NotAvailable;
 
                 var imageNode = xmlNode.SelectSingleNode("Image");
                 if (imageNode != null && imageNode.LastChild != null)
                 {
                     actor.Photo = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value));
+                }
+                else
+                {
+                    actor.Photo = DefaultActorPhoto;
                 }
                 
                 actors.Add(actor);
@@ -540,13 +563,13 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var episode = new Episode(new Tuple<string, int, int>(imdbId, int.Parse(seasonNumberNode.LastChild.Value), int.Parse(episodeNumberNode.LastChild.Value)));
 
                 var nameNode = xmlNode.SelectSingleNode("EpisodeName");
-                episode.Name = (nameNode != null && nameNode.LastChild != null) ? nameNode.LastChild.Value : null;
+                episode.Name = (nameNode != null && nameNode.LastChild != null) ? nameNode.LastChild.Value : NotAvailable;
 
                 var descriptionNode = xmlNode.SelectSingleNode("Overview");
-                episode.Description = (descriptionNode != null && descriptionNode.LastChild != null) ? descriptionNode.LastChild.Value : null;
+                episode.Description = (descriptionNode != null && descriptionNode.LastChild != null) ? descriptionNode.LastChild.Value : NotAvailable;
 
                 var dateNote = xmlNode.SelectSingleNode("FirstAired");
-                episode.Date = (dateNote != null && dateNote.LastChild != null) ? dateNote.LastChild.Value : null;
+                episode.Date = (dateNote != null && dateNote.LastChild != null) ? dateNote.LastChild.Value : NotAvailable;
 
                 var directorNode = xmlNode.SelectSingleNode("Director");
                 episode.Directors = new List<Person>();
@@ -574,10 +597,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var filenameNode = xmlNode.SelectSingleNode("filename");
                 var filename = (filenameNode != null && filenameNode.LastChild != null) ? filenameNode.LastChild.Value : null;
 
-                if (filename != null)
-                {
-                    episode.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename));
-                }
+                episode.Poster = filename != null ? this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename)) : DefaultPoster;
             }
 
             return list;
