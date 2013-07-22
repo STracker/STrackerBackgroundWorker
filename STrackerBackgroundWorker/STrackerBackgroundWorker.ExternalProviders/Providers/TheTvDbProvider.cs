@@ -579,7 +579,8 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 {
                     episode.Directors.Add(new Person
                         {
-                            Name = director.Trim()
+                            Name = director.Trim(),
+                            Photo = DefaultActorPhoto
                         });
                 }
 
@@ -589,7 +590,12 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var guests = (guestsNode != null && guestsNode.LastChild != null) ? guestsNode.LastChild.Value.Split('|') : new string[0];
                 foreach (var guest in guests.Where(guest => guest != string.Empty))
                 {
-                    episode.GuestActors.Add(new Actor { Name = guest.Trim() , CharacterName = NotAvailable, Photo = DefaultActorPhoto });
+                    episode.GuestActors.Add(new Actor
+                        {
+                            Name = guest.Trim(), 
+                            CharacterName = NotAvailable, 
+                            Photo = DefaultActorPhoto
+                        });
                 }
 
                 list.Add(episode);
