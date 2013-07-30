@@ -259,7 +259,8 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         {
             var url = string.Format("{0}/api/GetSeries.php?seriesname={1}", MirrorPath, name);
             var xdoc = new XmlDocument();
-           
+            var nameNormalized = name.ToLower();
+
             try
             {
                 xdoc.Load(new XmlTextReader(url));
@@ -286,7 +287,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 }
 
                 var nodeName = xdoc.SelectSingleNode("//SeriesName");
-                if (nodeName == null || nodeName.LastChild == null || !nodeName.LastChild.Value.Equals(name))
+                if (nodeName == null || nodeName.LastChild == null || !nodeName.LastChild.Value.ToLower().Equals(nameNormalized))
                 {
                     continue;
                 }
