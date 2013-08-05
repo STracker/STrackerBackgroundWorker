@@ -60,7 +60,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// <summary>
         /// The repository.
         /// </summary>
-        private readonly IImageRepository repository;
+        // private readonly IImageRepository repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TheTvDbProvider"/> class.
@@ -70,7 +70,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// </param>
         public TheTvDbProvider(IImageRepository repository)
         {
-            this.repository = repository;
+            // this.repository = repository;
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var posterImageNode = xdoc.SelectSingleNode("//poster");
             if (posterImageNode != null && posterImageNode.LastChild != null)
             {
-                tvshow.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value));
+                tvshow.Poster = posterImageNode.LastChild.Value; // this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value));
             }
             else
             {
@@ -464,7 +464,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var imageNode = xmlNode.SelectSingleNode("Image");
                 if (imageNode != null && imageNode.LastChild != null)
                 {
-                    actor.Photo = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value));
+                    actor.Photo = imageNode.LastChild.Value; // this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value));
                 }
                 else
                 {
@@ -602,7 +602,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var filenameNode = xmlNode.SelectSingleNode("filename");
                 var filename = (filenameNode != null && filenameNode.LastChild != null) ? filenameNode.LastChild.Value : null;
 
-                episode.Poster = filename != null ? this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename)) : DefaultPoster;
+                episode.Poster = filename != null ? /*this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename))*/ filename : DefaultPoster;
             }
 
             return list;
