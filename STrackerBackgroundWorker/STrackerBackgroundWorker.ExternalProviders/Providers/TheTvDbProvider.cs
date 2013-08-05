@@ -17,8 +17,6 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
     using System.Linq;
     using System.Xml;
 
-    using ImageRepository.Core;
-
     using STrackerBackgroundWorker.ExternalProviders.Core;
 
     using STrackerServer.DataAccessLayer.DomainEntities;
@@ -240,10 +238,10 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             tvshow.Actors = this.GetActors(id);
 
             // Get seasons.
-            seasons = this.GetSeasonsInformation(tvshow.TvShowId, xdoc);
+            seasons = this.GetSeasonsInformation(tvshow.Id, xdoc);
 
             // Get episodes.
-            episodes = this.GetEpisodesInformation(tvshow.TvShowId, xdoc);
+            episodes = this.GetEpisodesInformation(tvshow.Id, xdoc);
         }
 
         /// <summary>
@@ -517,7 +515,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var enumerator = numbers.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                list.Add(new Season(new Tuple<string, int>(imdbId, enumerator.Current)));
+                list.Add(new Season(new Season.SeasonKey { TvshowId = imdbId, SeasonNumber = enumerator.Current }));
             }
 
             return list;
@@ -561,7 +559,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                     continue;
                 }
 
-                var episode = new Episode(new Tuple<string, int, int>(imdbId, int.Parse(seasonNumberNode.LastChild.Value), int.Parse(episodeNumberNode.LastChild.Value)));
+                var episode = new Episode(new Episode.EpisodeKey { TvshowId = imdbId, SeasonNumber = int.Parse(seasonNumberNode.LastChild.Value), EpisodeNumber = int.Parse(episodeNumberNode.LastChild.Value) });
 
                 var nameNode = xmlNode.SelectSingleNode("EpisodeName");
                 episode.Name = (nameNode != null && nameNode.LastChild != null) ? nameNode.LastChild.Value : NotAvailable;

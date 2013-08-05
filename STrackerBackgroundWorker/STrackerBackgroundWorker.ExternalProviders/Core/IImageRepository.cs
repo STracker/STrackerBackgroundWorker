@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace ImageRepository.Core
+namespace STrackerBackgroundWorker.ExternalProviders.Core
 {
     /// <summary>
     /// The ImageRepository interface.

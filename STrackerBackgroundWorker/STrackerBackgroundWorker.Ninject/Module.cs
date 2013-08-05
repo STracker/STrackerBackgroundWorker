@@ -13,8 +13,6 @@ namespace STrackerBackgroundWorker.Ninject
 
     using CloudinaryDotNet;
 
-    using ImageRepository.Core;
-
     using MongoDB.Driver;
 
     using global::Ninject.Modules;
@@ -28,10 +26,12 @@ namespace STrackerBackgroundWorker.Ninject
     using STrackerBackgroundWorker.ExternalProviders.Repositories;
     using STrackerBackgroundWorker.RabbitMQ;
 
+    using STrackerServer.DataAccessLayer.Core;
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
     using STrackerServer.DataAccessLayer.Core.SeasonsRepositories;
     using STrackerServer.DataAccessLayer.Core.TvShowsRepositories;
     using STrackerServer.DataAccessLayer.Core.UsersRepositories;
+    using STrackerServer.Repository.MongoDB.Core;
     using STrackerServer.Repository.MongoDB.Core.EpisodesRepositories;
     using STrackerServer.Repository.MongoDB.Core.SeasonsRepositories;
     using STrackerServer.Repository.MongoDB.Core.TvShowsRepositories;
@@ -66,6 +66,7 @@ namespace STrackerBackgroundWorker.Ninject
             this.Bind<IEpisodesRepository>().To<EpisodesRepository>();
             this.Bind<IEpisodeCommentsRepository>().To<EpisodeCommentsRepository>();
             this.Bind<IEpisodeRatingsRepository>().To<EpisodeRatingsRepository>();
+            this.Bind<NewestEpisodesRepository>().To<NewestEpisodesRepository>();
 
             // Users stuff dependencies...
             this.Bind<IUsersRepository>().To<UsersRepository>();

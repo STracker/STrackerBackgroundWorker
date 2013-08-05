@@ -9,10 +9,9 @@
 
 namespace STrackerBackgroundWorker.Commands.Commands
 {
-    using System;
-
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
     using STrackerServer.DataAccessLayer.Core.UsersRepositories;
+    using STrackerServer.DataAccessLayer.DomainEntities;
     using STrackerServer.DataAccessLayer.DomainEntities.AuxiliaryEntities;
 
     /// <summary>
@@ -72,7 +71,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
 
             comment.Uri = string.Format("tvshows/{0}/seasons/{1}/episodes/{2}/comments/{3}", tvshowId, seasonNumber, episodeNumber, comment.Id);
 
-            this.repository.AddComment(new Tuple<string, int, int>(tvshowId, int.Parse(seasonNumber), int.Parse(episodeNumber)), comment);
+            this.repository.AddComment(new Episode.EpisodeKey { TvshowId = tvshowId, SeasonNumber = int.Parse(seasonNumber), EpisodeNumber = int.Parse(episodeNumber) }, comment);
         }
     }
 }

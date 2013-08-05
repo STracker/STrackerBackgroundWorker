@@ -12,7 +12,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Repositories
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
 
-    using ImageRepository.Core;
+    using STrackerBackgroundWorker.ExternalProviders.Core;
 
     /// <summary>
     /// The cloudinary repository.
