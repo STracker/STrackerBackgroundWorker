@@ -66,7 +66,7 @@ namespace STrackerBackgroundWorker.Ninject
             this.Bind<IEpisodesRepository>().To<EpisodesRepository>();
             this.Bind<IEpisodeCommentsRepository>().To<EpisodeCommentsRepository>();
             this.Bind<IEpisodeRatingsRepository>().To<EpisodeRatingsRepository>();
-            this.Bind<NewestEpisodesRepository>().To<NewestEpisodesRepository>();
+            this.Bind<INewestEpisodesRepository>().To<NewestEpisodesRepository>();
 
             // Users stuff dependencies...
             this.Bind<IUsersRepository>().To<UsersRepository>();
