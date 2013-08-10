@@ -515,7 +515,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var enumerator = numbers.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                list.Add(new Season(new Season.SeasonKey { TvshowId = imdbId, SeasonNumber = enumerator.Current }));
+                list.Add(new Season(new Season.SeasonId { TvShowId = imdbId, SeasonNumber = enumerator.Current }));
             }
 
             return list;
@@ -559,7 +559,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                     continue;
                 }
 
-                var episode = new Episode(new Episode.EpisodeKey { TvshowId = imdbId, SeasonNumber = int.Parse(seasonNumberNode.LastChild.Value), EpisodeNumber = int.Parse(episodeNumberNode.LastChild.Value) });
+                var episode = new Episode(new Episode.EpisodeId { TvShowId = imdbId, SeasonNumber = int.Parse(seasonNumberNode.LastChild.Value), EpisodeNumber = int.Parse(episodeNumberNode.LastChild.Value) });
 
                 var nameNode = xmlNode.SelectSingleNode("EpisodeName");
                 episode.Name = (nameNode != null && nameNode.LastChild != null) ? nameNode.LastChild.Value : NotAvailable;

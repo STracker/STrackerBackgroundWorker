@@ -71,7 +71,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
 
             comment.Uri = string.Format("tvshows/{0}/seasons/{1}/episodes/{2}/comments/{3}", tvshowId, seasonNumber, episodeNumber, comment.Id);
 
-            this.repository.AddComment(new Episode.EpisodeKey { TvshowId = tvshowId, SeasonNumber = int.Parse(seasonNumber), EpisodeNumber = int.Parse(episodeNumber) }, comment);
+            this.repository.AddComment(new Episode.EpisodeId { TvShowId = tvshowId, SeasonNumber = int.Parse(seasonNumber), EpisodeNumber = int.Parse(episodeNumber) }, comment);
         }
     }
 }

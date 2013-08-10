@@ -31,6 +31,8 @@ namespace STrackerBackgroundWorker.Ninject
     using STrackerServer.DataAccessLayer.Core.SeasonsRepositories;
     using STrackerServer.DataAccessLayer.Core.TvShowsRepositories;
     using STrackerServer.DataAccessLayer.Core.UsersRepositories;
+    using STrackerServer.Logger.Core;
+    using STrackerServer.Logger.SendGrid;
     using STrackerServer.Repository.MongoDB.Core;
     using STrackerServer.Repository.MongoDB.Core.EpisodesRepositories;
     using STrackerServer.Repository.MongoDB.Core.SeasonsRepositories;
@@ -66,7 +68,7 @@ namespace STrackerBackgroundWorker.Ninject
             this.Bind<IEpisodesRepository>().To<EpisodesRepository>();
             this.Bind<IEpisodeCommentsRepository>().To<EpisodeCommentsRepository>();
             this.Bind<IEpisodeRatingsRepository>().To<EpisodeRatingsRepository>();
-            this.Bind<INewestEpisodesRepository>().To<NewestEpisodesRepository>();
+            this.Bind<ITvShowNewEpisodesRepository>().To<TvShowNewEpisodesRepository>();
 
             // Users stuff dependencies...
             this.Bind<IUsersRepository>().To<UsersRepository>();
@@ -95,6 +97,9 @@ namespace STrackerBackgroundWorker.Ninject
                 .WithConstructorArgument("apiSecret", ConfigurationManager.AppSettings["Cloudinary:ApiSecret"]);
 
             this.Bind<Cloudinary>().ToSelf();
+
+            // Logger dependecies
+            this.Bind<ILogger>().To<SendGridLogger>();
         }
     }
 }
