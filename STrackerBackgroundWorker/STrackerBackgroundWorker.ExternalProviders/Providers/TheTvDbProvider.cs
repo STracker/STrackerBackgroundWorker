@@ -401,7 +401,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var posterImageNode = xdoc.SelectSingleNode("//poster");
             if (posterImageNode != null && posterImageNode.LastChild != null)
             {
-                tvshow.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value));
+                tvshow.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value), DefaultPoster);
             }
             else
             {
@@ -464,7 +464,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var imageNode = xmlNode.SelectSingleNode("Image");
                 if (imageNode != null && imageNode.LastChild != null)
                 {
-                    actor.Photo = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value));
+                    actor.Photo = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value), DefaultActorPhoto);
                 }
                 else
                 {
@@ -602,7 +602,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var filenameNode = xmlNode.SelectSingleNode("filename");
                 var filename = (filenameNode != null && filenameNode.LastChild != null) ? filenameNode.LastChild.Value : null;
 
-                episode.Poster = filename != null ? this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename)) : DefaultPoster;
+                episode.Poster = filename != null ? this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename), DefaultPoster) : DefaultPoster;
             }
 
             return list;

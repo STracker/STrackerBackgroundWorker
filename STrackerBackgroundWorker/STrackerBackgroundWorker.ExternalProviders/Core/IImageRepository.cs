@@ -20,9 +20,12 @@ namespace STrackerBackgroundWorker.ExternalProviders.Core
         /// <param name="imageUrl">
         /// The image url.
         /// </param>
+        /// <param name="defaultImage">
+        /// The default image in case of error
+        /// </param>
         /// <returns>
         /// The resulting url.
         /// </returns>
-        string Put(string imageUrl);
+        string Put(string imageUrl, string defaultImage);
     }
 }

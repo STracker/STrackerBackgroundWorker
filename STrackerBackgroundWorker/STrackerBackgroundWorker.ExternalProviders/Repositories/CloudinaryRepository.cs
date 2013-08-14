@@ -41,14 +41,17 @@ namespace STrackerBackgroundWorker.ExternalProviders.Repositories
         /// <param name="imageUrl">
         /// The image url.
         /// </param>
+        /// <param name="defaultImage">
+        /// The default image in case of error
+        /// </param>
         /// <returns>
         /// The resulting url.
         /// </returns>
-        public string Put(string imageUrl)
+        public string Put(string imageUrl, string defaultImage)
         {
             var fileDescription = new FileDescription(imageUrl);
-            var result = this.provider.Upload(new RawUploadParams { File = fileDescription });
-            return result.Uri.AbsoluteUri;
+            var result = this.provider.Upload(new ImageUploadParams { File = fileDescription });
+            return result.Uri != null ? result.Uri.AbsoluteUri : defaultImage;
         }
     }
 }
