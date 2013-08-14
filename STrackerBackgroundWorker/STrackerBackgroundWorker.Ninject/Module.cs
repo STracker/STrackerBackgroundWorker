@@ -98,7 +98,6 @@ namespace STrackerBackgroundWorker.Ninject
 
             this.Bind<Cloudinary>().ToSelf();
 
-            // Logger dependencies
             this.Bind<ILogger>().To<SendGridLogger>();
         }
     }
