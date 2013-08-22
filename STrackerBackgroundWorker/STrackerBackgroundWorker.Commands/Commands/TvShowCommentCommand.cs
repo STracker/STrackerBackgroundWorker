@@ -9,6 +9,8 @@
 
 namespace STrackerBackgroundWorker.Commands.Commands
 {
+    using STrackerBackgroundWorker.TextValidators.Core;
+
     using STrackerServer.DataAccessLayer.Core.TvShowsRepositories;
     using STrackerServer.DataAccessLayer.Core.UsersRepositories;
     using STrackerServer.DataAccessLayer.DomainEntities.AuxiliaryEntities;
@@ -37,8 +39,11 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// <param name="usersRepository">
         /// The users repository.
         /// </param>
-        public TvShowCommentCommand(ITvShowCommentsRepository repository, IUsersRepository usersRepository)
-            : base("tvShowCommentAdd")
+        /// <param name="textValidator">
+        /// The text validator.
+        /// </param>
+        public TvShowCommentCommand(ITvShowCommentsRepository repository, IUsersRepository usersRepository, ITextValidator textValidator)
+            : base("tvShowCommentAdd", textValidator)
         {
             this.repository = repository;
             this.usersRepository = usersRepository;

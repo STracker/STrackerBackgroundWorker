@@ -70,9 +70,13 @@
       <Project>{31952361-dfa9-4025-9b55-6a5944ac28ef}</Project>
       <Name>STrackerBackgroundWorker.RabbitMQ</Name>
     </ProjectReference>
+    <ProjectReference Include="..\STrackerBackgroundWorker.TextValidators\STrackerBackgroundWorker.TextValidators.csproj">
+      <Project>{F97BEF4D-3C92-438B-B710-4BE32F22C533}</Project>
+      <Name>STrackerBackgroundWorker.TextValidators</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="words.xml">
+    <Content Include="Words\en.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

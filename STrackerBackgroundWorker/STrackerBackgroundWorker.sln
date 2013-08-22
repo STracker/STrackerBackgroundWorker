@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1C79A4
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STrackerBackgroundWorker.TextValidators", "STrackerBackgroundWorker.TextValidators\STrackerBackgroundWorker.TextValidators.csproj", "{F97BEF4D-3C92-438B-B710-4BE32F22C533}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A8D515E-DE35-4145-BC9C-BDC8F54E3BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F97BEF4D-3C92-438B-B710-4BE32F22C533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F97BEF4D-3C92-438B-B710-4BE32F22C533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F97BEF4D-3C92-438B-B710-4BE32F22C533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F97BEF4D-3C92-438B-B710-4BE32F22C533}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

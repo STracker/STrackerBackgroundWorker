@@ -13,6 +13,7 @@ namespace STrackerBackgroundWorker
 
     using STrackerBackgroundWorker.Ninject;
     using STrackerBackgroundWorker.RabbitMQ;
+    using STrackerBackgroundWorker.TextValidators.Validators;
 
     /// <summary>
     /// The program.
@@ -24,6 +25,7 @@ namespace STrackerBackgroundWorker
         /// </summary>
         public static void Main()
         {
+            
             QueueManager queueM;
             using (IKernel kernel = new StandardKernel(new Module()))
             {
@@ -37,8 +39,6 @@ namespace STrackerBackgroundWorker
                 var msg = queueM.Pull();
                 container.GetCommand(msg.CommandName).Execute(msg.Arg);
             }
-// ReSharper disable FunctionNeverReturns
         }
-// ReSharper restore FunctionNeverReturns
     }
 }

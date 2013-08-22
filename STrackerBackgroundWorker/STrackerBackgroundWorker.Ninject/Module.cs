@@ -25,6 +25,9 @@ namespace STrackerBackgroundWorker.Ninject
     using STrackerBackgroundWorker.ExternalProviders.Providers;
     using STrackerBackgroundWorker.ExternalProviders.Repositories;
     using STrackerBackgroundWorker.RabbitMQ;
+    using STrackerBackgroundWorker.TextValidators.Core;
+    using STrackerBackgroundWorker.TextValidators.Detectors;
+    using STrackerBackgroundWorker.TextValidators.Validators;
 
     using STrackerServer.DataAccessLayer.Core;
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
@@ -99,6 +102,10 @@ namespace STrackerBackgroundWorker.Ninject
             this.Bind<Cloudinary>().ToSelf();
 
             this.Bind<ILogger>().To<SendGridLogger>();
+
+            this.Bind<ITextValidator>().To<OffensiveTextValidator>();
+
+            this.Bind<ILanguageDetector>().To<DummyLanguageDetector>();
         }
     }
 }

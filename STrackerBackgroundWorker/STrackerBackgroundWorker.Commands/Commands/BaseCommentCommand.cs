@@ -10,6 +10,7 @@
 namespace STrackerBackgroundWorker.Commands.Commands
 {
     using STrackerBackgroundWorker.Commands.Core;
+    using STrackerBackgroundWorker.TextValidators.Core;
 
     /// <summary>
     /// The base comment command.
@@ -17,14 +18,23 @@ namespace STrackerBackgroundWorker.Commands.Commands
     public abstract class BaseCommentCommand : ICommand
     {
         /// <summary>
+        /// The text validator.
+        /// </summary>
+        private readonly ITextValidator textValidator;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BaseCommentCommand"/> class.
         /// </summary>
         /// <param name="name">
         /// The name.
         /// </param>
-        protected BaseCommentCommand(string name)
+        /// <param name="textValidator">
+        /// The text validator.
+        /// </param>
+        protected BaseCommentCommand(string name, ITextValidator textValidator)
         {
             this.CommandName = name;
+            this.textValidator = textValidator;
         }
 
         /// <summary>
@@ -51,8 +61,7 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// </returns>
         protected bool ContainsOffensiveWords(string comment)
         {
-            // TODO
-            return false;
+            return !this.textValidator.Validate(comment);
         }
     }
 }

@@ -66,6 +66,10 @@
       <Project>{9A1E7D74-B28D-4E90-A3BA-56FCB43CB1FA}</Project>
       <Name>STrackerBackgroundWorker.ExternalProviders</Name>
     </ProjectReference>
+    <ProjectReference Include="..\STrackerBackgroundWorker.TextValidators\STrackerBackgroundWorker.TextValidators.csproj">
+      <Project>{F97BEF4D-3C92-438B-B710-4BE32F22C533}</Project>
+      <Name>STrackerBackgroundWorker.TextValidators</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

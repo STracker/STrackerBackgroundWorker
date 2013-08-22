@@ -9,6 +9,8 @@
 
 namespace STrackerBackgroundWorker.Commands.Commands
 {
+    using STrackerBackgroundWorker.TextValidators.Core;
+
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
     using STrackerServer.DataAccessLayer.Core.UsersRepositories;
     using STrackerServer.DataAccessLayer.DomainEntities;
@@ -38,8 +40,11 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// <param name="usersRepository">
         /// The users repository.
         /// </param>
-        public EpisodeCommentCommand(IEpisodeCommentsRepository repository, IUsersRepository usersRepository)
-            : base("episodeCommentAdd")
+        /// <param name="textValidator">
+        /// The text validator.
+        /// </param>
+        public EpisodeCommentCommand(IEpisodeCommentsRepository repository, IUsersRepository usersRepository, ITextValidator textValidator)
+            : base("episodeCommentAdd", textValidator)
         {
             this.repository = repository;
             this.usersRepository = usersRepository;
