@@ -76,6 +76,7 @@ namespace STrackerBackgroundWorker.TextValidators.Detectors
                 }
 
                 return responseObj.Data.Detections
+                    .Where(detection => !detection.Language.Equals("xxx"))
                     .OrderByDescending(detection => detection.Confidence)
                     .First()
                     .Language;
