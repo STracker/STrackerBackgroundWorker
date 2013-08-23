@@ -23,7 +23,7 @@ namespace STrackerBackgroundWorker.TextValidators.Validators
         /// <summary>
         /// The words directory.
         /// </summary>
-        public const string WordsDirectory = "../../Words";
+        public const string WordsDirectory = "Words";
 
         /// <summary>
         /// The offensive words.
