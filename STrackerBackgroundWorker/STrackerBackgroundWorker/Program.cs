@@ -10,14 +10,13 @@
 namespace STrackerBackgroundWorker
 {
     using System;
-    using System.Net.Mail;
 
     using global::Ninject;
 
     using STrackerBackgroundWorker.Ninject;
     using STrackerBackgroundWorker.RabbitMQ;
 
-    using STrackerServer.Logger.SendGrid;
+    using STrackerServer.Logger.Core;
 
     /// <summary>
     /// The program.
@@ -29,28 +28,30 @@ namespace STrackerBackgroundWorker
         /// </summary>
         public static void Main()
         {
-            var logger = new SendGridLogger(new SmtpClient());
+            QueueManager queueM;
+            ILogger logger;
 
-            try
+            using (IKernel kernel = new StandardKernel(new Module()))
             {
-                QueueManager queueM;
-                using (IKernel kernel = new StandardKernel(new Module()))
-                {
-                    queueM = kernel.Get<QueueManager>();
-                }
+                queueM = kernel.Get<QueueManager>();
+                logger = kernel.Get<ILogger>();
+            }
 
-                var container = new CommandContainer();
+            var container = new CommandContainer();
 
-                while (true)
+            while (true)
+            {
+                var msg = queueM.Pull();
+
+                try
                 {
-                    var msg = queueM.Pull();
                     container.GetCommand(msg.CommandName).Execute(msg.Arg);
                 }
-            }
-            catch (Exception exception)
-            {
-                logger.Error("Main", exception.GetType().Name, exception.Message);
-            }
+                catch (Exception exception)
+                {
+                        logger.Error("Main", exception.GetType().Name, exception.Message);
+                }
+            } 
         }
     }
 }
