@@ -33,16 +33,6 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         private const string NotAvailable = "N/A";
 
         /// <summary>
-        /// The default actor photo.
-        /// </summary>
-        private const string DefaultActorPhoto = "https://dl.dropboxusercontent.com/u/2696848/default-profile-pic.jpg";
-
-        /// <summary>
-        /// The default poster.
-        /// </summary>
-        private const string DefaultPoster = "https://dl.dropboxusercontent.com/u/2696848/image-not-found.gif";
-
-        /// <summary>
         /// The mirror path.
         /// </summary>
         private static readonly string MirrorPath = ConfigurationManager.AppSettings["TvDbMirrorPath"];
@@ -56,22 +46,6 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
         /// The update type.
         /// </summary>
         private static readonly string UpdateType = ConfigurationManager.AppSettings["UpdateType"];
-
-        /// <summary>
-        /// The repository.
-        /// </summary>
-        private readonly IImageRepository repository;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TheTvDbProvider"/> class.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        public TheTvDbProvider(IImageRepository repository)
-        {
-            this.repository = repository;
-        }
 
         /// <summary>
         /// The get information by IMDB id.
@@ -401,11 +375,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
             var posterImageNode = xdoc.SelectSingleNode("//poster");
             if (posterImageNode != null && posterImageNode.LastChild != null)
             {
-                tvshow.Poster = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value), DefaultPoster);
-            }
-            else
-            {
-                tvshow.Poster = DefaultPoster;
+                tvshow.Poster = string.Format("{0}/banners/{1}", MirrorPath, posterImageNode.LastChild.Value);
             }
 
             return tvshow;
@@ -464,11 +434,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var imageNode = xmlNode.SelectSingleNode("Image");
                 if (imageNode != null && imageNode.LastChild != null)
                 {
-                    actor.Photo = this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value), DefaultActorPhoto);
-                }
-                else
-                {
-                    actor.Photo = DefaultActorPhoto;
+                    actor.Photo = string.Format("{0}/banners/{1}", MirrorPath, imageNode.LastChild.Value);
                 }
                 
                 actors.Add(actor);
@@ -576,11 +542,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var directors = (directorNode != null && directorNode.LastChild != null) ? directorNode.LastChild.Value.Split('|') : new string[0];
                 foreach (var director in directors.Where(director => director != string.Empty))
                 {
-                    episode.Directors.Add(new Person
-                        {
-                            Name = director.Trim(),
-                            Photo = DefaultActorPhoto
-                        });
+                    episode.Directors.Add(new Person { Name = director.Trim() });
                 }
 
                 var guestsNode = xmlNode.SelectSingleNode("GuestStars");
@@ -591,9 +553,8 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 {
                     episode.GuestActors.Add(new Actor
                         {
-                            Name = guest.Trim(), 
-                            CharacterName = NotAvailable, 
-                            Photo = DefaultActorPhoto
+                            Name = guest.Trim(),
+                            CharacterName = NotAvailable,
                         });
                 }
 
@@ -602,7 +563,7 @@ namespace STrackerBackgroundWorker.ExternalProviders.Providers
                 var filenameNode = xmlNode.SelectSingleNode("filename");
                 var filename = (filenameNode != null && filenameNode.LastChild != null) ? filenameNode.LastChild.Value : null;
 
-                episode.Poster = filename != null ? this.repository.Put(string.Format("{0}/banners/{1}", MirrorPath, filename), DefaultPoster) : DefaultPoster;
+                episode.Poster = filename != null ? string.Format("{0}/banners/{1}", MirrorPath, filename) : null;
             }
 
             return list;

@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CloudinaryDotNet">
-      <HintPath>..\packages\CloudinaryDotNet.1.0.5\lib\net35\CloudinaryDotNet.dll</HintPath>
+    <Reference Include="CloudinaryDotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CloudinaryDotNet.1.0.9\lib\net40\CloudinaryDotNet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="MongoDB.Bson">
@@ -42,7 +43,8 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -55,15 +57,19 @@
     </Reference>
     <Reference Include="STrackerServer.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\STrackerServer.Repository.MongoDB.2.3.1\lib\net45\STrackerServer.DataAccessLayer.dll</HintPath>
+      <HintPath>..\packages\STrackerServer.Repository.MongoDB.2.3.3\lib\net45\STrackerServer.DataAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="STrackerServer.ImageConverter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\STrackerServer.Repository.MongoDB.2.3.3\lib\net45\STrackerServer.ImageConverter.dll</HintPath>
     </Reference>
     <Reference Include="STrackerServer.Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\STrackerServer.Repository.MongoDB.2.3.1\lib\net45\STrackerServer.Logger.dll</HintPath>
+      <HintPath>..\packages\STrackerServer.Repository.MongoDB.2.3.3\lib\net45\STrackerServer.Logger.dll</HintPath>
     </Reference>
     <Reference Include="STrackerServer.Repository.MongoDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\STrackerServer.Repository.MongoDB.2.3.1\lib\net45\STrackerServer.Repository.MongoDB.dll</HintPath>
+      <HintPath>..\packages\STrackerServer.Repository.MongoDB.2.3.3\lib\net45\STrackerServer.Repository.MongoDB.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

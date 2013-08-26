@@ -23,7 +23,6 @@ namespace STrackerBackgroundWorker.Ninject
     using STrackerBackgroundWorker.ExternalProviders;
     using STrackerBackgroundWorker.ExternalProviders.Core;
     using STrackerBackgroundWorker.ExternalProviders.Providers;
-    using STrackerBackgroundWorker.ExternalProviders.Repositories;
     using STrackerBackgroundWorker.RabbitMQ;
     using STrackerBackgroundWorker.TextValidators.Core;
     using STrackerBackgroundWorker.TextValidators.Detectors;
@@ -34,6 +33,8 @@ namespace STrackerBackgroundWorker.Ninject
     using STrackerServer.DataAccessLayer.Core.SeasonsRepositories;
     using STrackerServer.DataAccessLayer.Core.TvShowsRepositories;
     using STrackerServer.DataAccessLayer.Core.UsersRepositories;
+    using STrackerServer.ImageConverter.Cloudinary;
+    using STrackerServer.ImageConverter.Core;
     using STrackerServer.Logger.Core;
     using STrackerServer.Logger.SendGrid;
     using STrackerServer.Repository.MongoDB.Core;
@@ -91,7 +92,7 @@ namespace STrackerBackgroundWorker.Ninject
             this.Bind<QueueManager>().ToSelf().InSingletonScope();
 
             // IImagRepository dependencies
-            this.Bind<IImageRepository>().To<CloudinaryRepository>();
+            this.Bind<IImageConverter>().To<CloudinaryConverter>();
 
             // Cloudinary dependencies
             this.Bind<Account>().ToSelf()
