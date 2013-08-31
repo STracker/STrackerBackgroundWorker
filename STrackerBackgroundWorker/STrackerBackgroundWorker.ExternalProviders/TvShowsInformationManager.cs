@@ -66,6 +66,12 @@ namespace STrackerBackgroundWorker.ExternalProviders
         /// </returns>
         public List<ITvShowsInformationProvider> GetFromProvidersFolder()
         {
+            // If the folder is empty it won't be compied to the target directory.
+            if (!Directory.Exists("ExternalProviders"))
+            {
+                return new List<ITvShowsInformationProvider>();
+            }
+
             // Load assembly files
             var files = Directory.GetFiles("ExternalProviders");
 
