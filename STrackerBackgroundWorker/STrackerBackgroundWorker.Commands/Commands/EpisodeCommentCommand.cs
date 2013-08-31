@@ -9,7 +9,7 @@
 
 namespace STrackerBackgroundWorker.Commands.Commands
 {
-    using STrackerBackgroundWorker.TextValidators.Core;
+    using STrackerBackgroundWorker.TextValidators.Validators;
 
     using STrackerServer.DataAccessLayer.Core.EpisodesRepositories;
     using STrackerServer.DataAccessLayer.Core.UsersRepositories;
@@ -40,23 +40,23 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// <param name="usersRepository">
         /// The users repository.
         /// </param>
-        /// <param name="textValidator">
-        /// The text validator.
+        /// <param name="offensiveTextValidator">
+        /// The offensive Text Validator.
         /// </param>
-        public EpisodeCommentCommand(IEpisodeCommentsRepository repository, IUsersRepository usersRepository, ITextValidator textValidator)
-            : base("episodeCommentAdd", textValidator)
+        public EpisodeCommentCommand(IEpisodeCommentsRepository repository, IUsersRepository usersRepository, OffensiveTextValidator offensiveTextValidator)
+            : base("episodeCommentAdd", offensiveTextValidator)
         {
             this.repository = repository;
             this.usersRepository = usersRepository;
         }
 
         /// <summary>
-        /// The execute.
+        /// The comment command execute.
         /// </summary>
         /// <param name="arg">
-        /// The argument.
+        /// The comment.
         /// </param>
-        public override void Execute(string arg)
+        protected override void CommentCommandExecute(string arg)
         {
             // Get information.
             var splitArgs = arg.Split('|');
@@ -65,11 +65,6 @@ namespace STrackerBackgroundWorker.Commands.Commands
             var episodeNumber = splitArgs[2];
             var userId = splitArgs[3];
             var commentText = splitArgs[4];
-
-            if (this.ContainsOffensiveWords(commentText))
-            {
-                return;
-            }
 
             // If the comment is valid insert into repository.
             var comment = new Comment { Body = commentText, User = this.usersRepository.Read(userId).GetSynopsis() };

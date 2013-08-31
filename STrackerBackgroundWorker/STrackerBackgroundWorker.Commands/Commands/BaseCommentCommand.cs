@@ -9,6 +9,8 @@
 
 namespace STrackerBackgroundWorker.Commands.Commands
 {
+    using System.Linq;
+
     using STrackerBackgroundWorker.Commands.Core;
     using STrackerBackgroundWorker.TextValidators.Core;
 
@@ -18,9 +20,9 @@ namespace STrackerBackgroundWorker.Commands.Commands
     public abstract class BaseCommentCommand : ICommand
     {
         /// <summary>
-        /// The text validator.
+        /// The text validators.
         /// </summary>
-        private readonly ITextValidator textValidator;
+        private readonly ITextValidator[] textValidators;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCommentCommand"/> class.
@@ -28,13 +30,13 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <param name="textValidator">
-        /// The text validator.
+        /// <param name="textValidators">
+        /// The text validators.
         /// </param>
-        protected BaseCommentCommand(string name, ITextValidator textValidator)
+        protected BaseCommentCommand(string name, params ITextValidator[] textValidators)
         {
             this.CommandName = name;
-            this.textValidator = textValidator;
+            this.textValidators = textValidators;
         }
 
         /// <summary>
@@ -48,20 +50,25 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// <param name="arg">
         /// The argument.
         /// </param>
-        public abstract void Execute(string arg);
+        public void Execute(string arg)
+        {
+            if (this.textValidators != null)
+            {
+                if (this.textValidators.Any(textValidator => !textValidator.Validate(arg)))
+                {
+                    return;
+                } 
+            }
+
+            this.CommentCommandExecute(arg);
+        }
 
         /// <summary>
-        /// Verify if the comment contains offensive words.
+        /// The comment execute.
         /// </summary>
-        /// <param name="comment">
+        /// <param name="arg">
         /// The comment.
         /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        protected bool ContainsOffensiveWords(string comment)
-        {
-            return !this.textValidator.Validate(comment);
-        }
+        protected abstract void CommentCommandExecute(string arg);
     }
 }

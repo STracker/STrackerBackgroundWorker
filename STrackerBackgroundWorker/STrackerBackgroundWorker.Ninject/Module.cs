@@ -104,7 +104,7 @@ namespace STrackerBackgroundWorker.Ninject
 
             this.Bind<ILogger>().To<SendGridLogger>();
 
-            this.Bind<ITextValidator>().To<OffensiveTextValidator>();
+            this.Bind<OffensiveTextValidator>().ToSelf();
 
             this.Bind<ILanguageDetector>().To<LanguageDetector>().WithConstructorArgument("apiKey", ConfigurationManager.AppSettings["DL:ApiKey"]);
         }
