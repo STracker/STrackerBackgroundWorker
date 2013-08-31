@@ -55,13 +55,18 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// <param name="arg">
         /// The comment.
         /// </param>
-        protected override void CommentCommandExecute(string arg)
+        public override void Execute(string arg)
         {
             // Get information.
             var splitArgs = arg.Split('|');
             var tvshowId = splitArgs[0];
             var userId = splitArgs[1];
             var commentText = splitArgs[2];
+
+            if (!this.ValidateComment(commentText))
+            {
+                return;
+            }
 
             // If the comment is valid insert into repository.
             var comment = new Comment

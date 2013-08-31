@@ -50,25 +50,25 @@ namespace STrackerBackgroundWorker.Commands.Commands
         /// <param name="arg">
         /// The argument.
         /// </param>
-        public void Execute(string arg)
-        {
-            if (this.textValidators != null)
-            {
-                if (this.textValidators.Any(textValidator => !textValidator.Validate(arg)))
-                {
-                    return;
-                } 
-            }
-
-            this.CommentCommandExecute(arg);
-        }
+        public abstract void Execute(string arg);
 
         /// <summary>
         /// The comment execute.
         /// </summary>
-        /// <param name="arg">
+        /// <param name="comment">
         /// The comment.
         /// </param>
-        protected abstract void CommentCommandExecute(string arg);
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        protected bool ValidateComment(string comment)
+        {
+            if (this.textValidators == null)
+            {
+                return true;
+            }
+
+            return !this.textValidators.Any(textValidator => !textValidator.Validate(comment));
+        }
     }
 }
